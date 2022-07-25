@@ -1,9 +1,7 @@
 import Component from "./Component";
 import render from "./render";
+import createElement from "./createElement";
 
-const createElement = () => {
-  // TODO:
-};
 export default {
   // TODO:
   createElement,

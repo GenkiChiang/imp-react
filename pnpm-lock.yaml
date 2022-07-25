@@ -4,18 +4,24 @@ specifiers:
   '@babel/core': ^7.18.9
   '@babel/preset-env': ^7.18.9
   '@babel/preset-react': ^7.18.6
+  '@types/lodash': ^4.14.182
   babel-loader: ^8.2.5
   clean-webpack-plugin: ^3.0.0
   html-webpack-plugin: ^4.3.0
+  lodash: ^4.17.21
   prettier: ^2.7.1
   webpack: ^4.44.1
   webpack-cli: ^3.3.12
   webpack-dev-server: ^3.11.0
 
+dependencies:
+  lodash: 4.17.21
+
 devDependencies:
   '@babel/core': 7.18.9
   '@babel/preset-env': 7.18.9_@babel+core@7.18.9
   '@babel/preset-react': 7.18.6_@babel+core@7.18.9
+  '@types/lodash': 4.14.182
   babel-loader: 8.2.5_7uc2ny5pnz7ums2wq2q562bf6y
   clean-webpack-plugin: 3.0.0_webpack@4.46.0
   html-webpack-plugin: 4.5.2_webpack@4.46.0
@@ -1288,6 +1294,10 @@ packages:
 
   /@types/json-schema/7.0.11:
     resolution: {integrity: sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ==}
+    dev: true
+
+  /@types/lodash/4.14.182:
+    resolution: {integrity: sha512-/THyiqyQAP9AfARo4pF+aCGcyiQ94tX/Is2I7HofNRqoYLgN1PBoOWu2/zTA5zMxzP5EFutMtWtGAFRKUe961Q==}
     dev: true
 
   /@types/minimatch/3.0.5:
@@ -3912,7 +3922,6 @@ packages:
 
   /lodash/4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
-    dev: true
 
   /loglevel/1.8.0:
     resolution: {integrity: sha512-G6A/nJLRgWOuuwdNuA6koovfEV1YpqqAG4pRUlFaz3jj2QNZ8M4vBqnVA+HBTmU/AMNUtlOsMmSpF6NyOjztbA==}
