@@ -1,7 +1,10 @@
 // test fn component
-import ImpReact from "./ImpReact";
 
-const root = document.getElementById("#app");
+import ImpReact from "../src/ImpReact";
+
+const root = document.getElementById("app");
+
+let conditionRenderFlag = 1;
 
 const virtualDom = (
   <div className="container">
@@ -15,14 +18,19 @@ const virtualDom = (
       </div>
     </div>
     <h4>test: 条件表达式</h4>
-    {1 === 1 && <div>1===1渲染当前内容</div>}
-    {2 === 1 && <div>2===2渲染当前内容</div>}
+    {conditionRenderFlag === 1 && <div>1===1渲染当前内容</div>}
+    {conditionRenderFlag === 2 && <div>2===1渲染当前内容</div>}
     <span>这是一段内容</span>
-    <button onClick={() => console.log("clicked button")}>点击我</button>
+    <button
+      onClick={() => {
+        console.log("button clicked");
+      }}
+    >
+      点击我
+    </button>
     <h4>这个将会被删除</h4>
     无标签包裹的的内容
     <input type="text" value="input.value" />
   </div>
 );
-
 ImpReact.render(virtualDom, root);
