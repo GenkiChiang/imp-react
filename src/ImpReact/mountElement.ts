@@ -1,20 +1,20 @@
 import { IElement } from "./types";
 import { isFunction } from "lodash";
-import { createDomElement } from "./createDomElement";
-import { isClassComponent } from "./utils";
+import { mountNativeElement } from "./mountNativeElement";
+import { mountComponent } from "./mountComponent";
 
-export const mountElement = (element: IElement, container: HTMLElement) => {
+export const mountElement = (
+  element: IElement,
+  container: HTMLElement,
+  oldElement?: IElement
+) => {
   const { type, props, children } = element;
 
   if (!isFunction(type)) {
-    // TODO:  mount native element
-    const newDom = createDomElement(element);
-
-    container.appendChild(newDom);
-    // return;
-  } else if (isClassComponent(type)) {
-    // TODO: mount class component
-  } else {
-    // TODO: mount fn component
+    // mount native element
+    mountNativeElement(element, container, oldElement);
+  } else if (isFunction(type)) {
+    // mount component
+    mountComponent(element, container, oldElement);
   }
 };

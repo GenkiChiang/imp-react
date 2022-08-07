@@ -1,6 +1,11 @@
 import {IElement} from "./types";
 import {createDomElement} from "./createDomElement";
 
-export const mountNativeElement = (element: IElement, container: HTMLElement,oldElement:IElement) => {
-    const newDomElement = createDomElement(element)
-}
+export const mountNativeElement = (
+  element: IElement,
+  container: HTMLElement,
+  oldElement: IElement
+) => {
+  const newDomElement = createDomElement(element);
+  container.appendChild(newDomElement);
+};

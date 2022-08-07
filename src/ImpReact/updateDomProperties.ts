@@ -5,13 +5,13 @@ export const updateDomProperties = (dom: HTMLElement, element: IElement) => {
   Object.entries(props).map(([propName, propValue]) => {
     if (propName.startsWith("on")) {
       const eventName = propName.slice(2).toLowerCase();
-      dom.addEventListener(eventName, propValue);
+      dom.addEventListener(eventName, propValue as EventListener);
     } else if (propName === "value" || propName === "checked") {
       dom[propName] = propValue;
     } else if (propName === "className") {
-      dom.setAttribute("class", propValue);
+      dom.setAttribute("class", propValue as string);
     } else if (propName !== "children") {
-      dom.setAttribute(propName, propValue);
+      dom.setAttribute(propName, propValue as string);
     }
   });
 };

@@ -6,10 +6,12 @@ import {
   isPlainObject,
   isUndefined,
 } from "lodash/fp";
+import { Component } from "../Component";
+import { FC } from "../types";
 
-export const isClassComponent = (type: Function) => {
+export const isClassComponent = (type: any) => {
   console.log(type);
-  return !type.prototype?.render;
+  return type?.prototype?.render;
 };
 
 const isFalsyObject = (value) => {
