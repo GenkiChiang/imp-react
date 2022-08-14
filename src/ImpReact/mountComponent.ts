@@ -1,4 +1,4 @@
-import { OldDom, ReactElement, ReactInstance } from "./types";
+import { Dom, OldDom, ReactElement, ReactInstance } from "./types";
 import { shouldConstruct } from "./utils";
 import { mountElement } from "./mountElement";
 import { ClassComponent, ComponentType, FC } from "./types/component";
@@ -22,7 +22,7 @@ const buildFnComponent = (element: ReactElement<any, FC>): ReactElement => {
 
 export const mountComponent = (
   element: ReactElement<any, ComponentType>,
-  container: HTMLElement,
+  container: Dom,
   oldDom?: OldDom
 ) => {
   const { type } = element;

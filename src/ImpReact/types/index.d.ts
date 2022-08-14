@@ -50,17 +50,14 @@ export type ReactNode =
 // | React$Portal
 // | Iterable<?React$Node>;
 
-export type OldDom = MixinTextDom | MixinChildNodeDom | MixinHTMLDom;
-export type Dom = HTMLElement | Text | ChildNode;
-export type MixinTextDom = Text &
-  Partial<{
-    _element: ReactElement;
-  }>;
-export type MixinChildNodeDom = ChildNode &
-  Partial<{
-    _element: ReactElement;
-  }>;
-export type MixinHTMLDom = HTMLElement &
-  Partial<{
-    _element: ReactElement;
-  }>;
+export type OldDom = MixinTextDom | MixinNodeDom | MixinHTMLDom;
+export type Dom = ParentNode | ChildNode | Node | HTMLElement;
+type Mixin_Element = Partial<{ _element: ReactElement }>;
+export type MixinTextDom = Text & Mixin_Element;
+
+export type MixinChildNode<T extends ParentNode | ChildNode = ChildNode> =
+  T & Mixin_Element;
+export type MixinParentNode = ParentNode & Mixin_Element;
+export type MixinNode = Node & Mixin_Element;
+export type MixinNodeDom = MixinChildNode | MixinParentNode | MixinNode;
+export type MixinHTMLDom = HTMLElement & Mixin_Element;

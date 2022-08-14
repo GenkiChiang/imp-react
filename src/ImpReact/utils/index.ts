@@ -1,6 +1,13 @@
-import {isArray, isBoolean, isNull, isObject, isPlainObject, isUndefined,} from "lodash/fp";
-import {ComponentType} from "../types/component";
-import {ReactElement, ReactInstance} from "../types";
+import {
+  isArray,
+  isBoolean,
+  isNull,
+  isObject,
+  isPlainObject,
+  isUndefined,
+} from "lodash/fp";
+import { ComponentType } from "../types/component";
+import { ReactElement, ReactInstance } from "../types";
 
 export const shouldConstruct = (type: ComponentType) => {
   const prototype = type.prototype;
@@ -52,3 +59,5 @@ export const isFalsy = (value: any) => {
   }
   return false;
 };
+
+export const voidFunction = () => {};

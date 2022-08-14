@@ -1,4 +1,6 @@
-import { ReactElement, ReactInstance } from "./types";
+import { render } from "./render";
+import { Dom, ReactElement, ReactInstance } from "./types";
+import { voidFunction } from "./utils";
 
 export abstract class ComponentLifecycle<P = any, S = any> {
   abstract readonly state: S;
@@ -13,6 +15,7 @@ export abstract class ComponentLifecycle<P = any, S = any> {
     nextProps: Readonly<P>,
     nextState: Readonly<S>
   ): boolean {
+    // TODO: deep compare
     return nextProps !== this.props || nextState !== this.state;
   }
   componentWillUpdate(nextProps: Readonly<P>, nextState: Readonly<S>): void {}
@@ -26,24 +29,37 @@ export abstract class Component<P = any, S = any> extends ComponentLifecycle<
 > {
   static defaultProps;
 
-  readonly state: S;
+  state: S;
   displayName?: string;
   // TODO:
   refs: { [key: string]: ReactInstance } = {};
-  _dom: HTMLElement;
+  _dom: Dom;
 
-  protected constructor(public readonly props: Readonly<P>) {
-    // TODO:
+  constructor(public readonly props: Readonly<P>) {
     super(props);
   }
   // public defaultProps;
 
-  setState(partialState: Partial<S>, callback: () => any): void {
-    // TODO:
+  setState(partialState: Partial<S>, callback: () => any = voidFunction): void {
+    this.state = Object.assign({}, this.state, partialState);
+    // update
+    this.update();
+
+    callback();
+  }
+  private update() {
+    const nextElement = this.render();
+    const oldDom = this.getDom();
+    const container = oldDom.parentNode;
+
+    render(nextElement, container, oldDom);
   }
 
-  setDom(dom: HTMLElement) {
+  setDom(dom: Dom) {
     this._dom = dom;
+  }
+  getDom() {
+    return this._dom;
   }
 
   isReactComponent = true;
@@ -51,4 +67,12 @@ export abstract class Component<P = any, S = any> extends ComponentLifecycle<
 }
 Component.prototype.isReactComponent = true;
 
-// TODO: pureComponent
+export abstract class PureComponent extends Component {
+  shouldComponentUpdate(
+    nextProps: Readonly<any>,
+    nextState: Readonly<any>
+  ): boolean {
+    // TODO: shallow compare
+    return super.shouldComponentUpdate(nextProps, nextState);
+  }
+}

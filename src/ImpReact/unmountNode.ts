@@ -1,9 +1,10 @@
-import { OldDom } from "./types";
+import { MixinChildNode, MixinNode, OldDom } from "./types";
 import { hasValidRef, isClassComponent } from "./utils";
 import { entries, forEach } from "lodash";
 import { isEventProps, removeEvent } from "./utils/eventHelper";
+import { Maybe } from "./types/utils";
 
-export const unmountNode = (oldDom: OldDom) => {
+export const unmountNode = (oldDom: MixinChildNode) => {
   // TODO:
   const oldElement = oldDom._element;
   // 1.文本节点，直接删除
@@ -29,13 +30,9 @@ export const unmountNode = (oldDom: OldDom) => {
     }
   });
   // 5.递归子节点，并且unmount子节点
-  if (oldDom.childNodes.length > 0) {
-    forEach(oldDom.childNodes, (node) => {
-      unmountNode(node);
-    });
+  while (oldDom.childNodes.length > 0) {
+    unmountNode(oldDom.childNodes[0]);
   }
   // 删除
   oldDom.remove();
-
-  // console.log(oldDom);
 };

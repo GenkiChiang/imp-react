@@ -15,13 +15,13 @@ const virtualDom = (
   </div>
 );
 ImpReact.render(
-  <TestFnComponent title="函数组件" content="函数组件内容" />,
+  <TestClassComponent title="Class组件" content="Class组件的内容" />,
   root
 );
 
-setTimeout(() => {
-  ImpReact.render(
-    <TestFnComponent title="改变后的函数组件" content="改变后的函数组件内容" />,
-    root
-  );
-}, 2000);
+// setTimeout(() => {
+//   ImpReact.render(
+//     <TestFnComponent title="改变后的函数组件" content="改变后的函数组件内容" />,
+//     root
+//   );
+// }, 2000);

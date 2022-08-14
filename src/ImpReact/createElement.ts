@@ -92,5 +92,6 @@ const ReactElementFactory = (type, key: ReactKey, ref, props): ReactElement => {
   Object.freeze(element.props);
   // Object.freeze(element);
 
+  // console.log(element)
   return element;
 };

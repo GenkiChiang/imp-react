@@ -1,4 +1,4 @@
-import { OldDom, ReactElement } from "./types";
+import { Dom, OldDom, ReactElement } from "./types";
 import { mountElement } from "./mountElement";
 import { isComponent } from "./utils";
 import { diffComponent } from "./diffComponent";
@@ -6,15 +6,12 @@ import { diffElement } from "./diffElement";
 
 export const diff = (
   element: ReactElement,
-  container: HTMLElement,
+  container: Dom,
   oldDom?: OldDom
 ) => {
   const { type, props } = element;
   const oldElement = oldDom?._element;
   const oldInstance = oldElement?.ReactInstance;
-
-  console.log("oldDom");
-  console.log(oldDom);
 
   if (!oldDom) {
     // mount element
@@ -27,6 +24,12 @@ export const diff = (
     // diff and update element
     diffElement(element, oldDom);
   }
+
+  // console.log(element)
+  // diff子节点
+  element.props.children.forEach((child, index) => {
+    diff(child, oldDom, oldDom.childNodes[index]);
+  });
 };
 
 /**

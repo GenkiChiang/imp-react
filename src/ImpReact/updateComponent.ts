@@ -3,10 +3,11 @@ import { diff } from "./diff";
 
 export const updateComponent = (
   element: ReactElement,
-  container: HTMLElement,
+  container: Node,
   oldDom: OldDom,
   oldInstance: ReactInstance
 ) => {
+
   const nextProps = element.props;
   // TODO: nextState
   const nextState = oldInstance.state;

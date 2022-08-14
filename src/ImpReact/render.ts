@@ -1,4 +1,4 @@
-import { ReactElement } from "./types";
+import { Dom, OldDom, ReactElement } from "./types";
 import { diff } from "./diff";
 
 /**
@@ -9,9 +9,10 @@ import { diff } from "./diff";
  */
 export const render = (
   element: ReactElement,
-  container: HTMLElement,
-  oldDom: ChildNode = container.firstChild
+  container: Dom,
+  oldDom: OldDom = container.firstChild
 ) => {
+  console.log('called render')
   // 根据类型创建真实Dom，渲染到container下
   diff(element, container, oldDom);
 };

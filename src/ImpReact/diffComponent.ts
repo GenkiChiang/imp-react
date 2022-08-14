@@ -6,12 +6,12 @@ import { updateComponent } from "./updateComponent";
 
 export const diffComponent = (
   element: ReactElement,
-  container: HTMLElement,
+  container: Node,
   oldDom: OldDom,
   oldInstance: ReactInstance
 ) => {
-    // console.log(element, oldInstance)
-    // console.log(isSameComponent(element, oldInstance))
+  // console.log(element, oldInstance)
+  // console.log(isSameComponent(element, oldInstance))
   if (isSameComponent(element, oldInstance)) {
     // 相同class组件,做组件更新操作
     updateComponent(element, container, oldDom, oldInstance);

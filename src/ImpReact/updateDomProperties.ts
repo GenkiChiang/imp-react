@@ -1,9 +1,9 @@
-import { MixinHTMLDom, ReactElement } from "./types";
+import { ReactElement } from "./types";
 import { Maybe } from "./types/utils";
-import {addEvent, isEventProps, removeEvent} from "./utils/eventHelper";
+import { addEvent, isEventProps, removeEvent } from "./utils/eventHelper";
 
 export const updateDomProperties = (
-  oldDom: MixinHTMLDom,
+  oldDom: HTMLElement,
   element: ReactElement,
   oldElement?: Maybe<ReactElement>
 ) => {
