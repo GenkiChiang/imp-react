@@ -6,14 +6,41 @@ import {
   isPlainObject,
   isUndefined,
 } from "lodash/fp";
-import { Component } from "../Component";
-import { FC } from "../types";
+import { ComponentType } from "../types/component";
+import { ReactElement, ReactInstance } from "../types";
 
-export const isClassComponent = (type: any) => {
-  console.log(type);
-  return type?.prototype?.render;
+export const shouldConstruct = (type: ComponentType) => {
+  const prototype = type.prototype;
+  return !!(prototype && prototype.isReactComponent);
+};
+export const hasValidKey = (props) => props.key !== undefined;
+export const hasValidRef = (props) => props.ref !== undefined;
+
+export const isClassComponent = (type: ComponentType) => {
+  if (typeof type === "function")
+    return !!type.prototype && type.prototype.isReactComponent;
+};
+export const isComponent = (type: ReactElement["type"]) => {
+  return typeof type === "function";
 };
 
+export const isSameComponent = (
+  element: ReactElement,
+  oldInstance: ReactInstance
+) => {
+  return oldInstance && element.type === oldInstance.constructor;
+};
+
+export const isSameElementType = (
+  element: ReactElement,
+  oldElement: ReactElement
+) => {
+  return element.type === oldElement.type;
+};
+
+export const isEventProps = (propsName: string) => propsName.startsWith("on");
+export const getEventName = (propsName: string) =>
+  propsName.slice(2).toLowerCase();
 const isFalsyObject = (value) => {
   if (!isObject(value)) return false;
   if (!isPlainObject(value)) return false;

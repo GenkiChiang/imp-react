@@ -1,31 +1,66 @@
-// virtual dom
-import { Component } from "../Component";
+import { ClassComponent, ComponentType } from "./component";
 
-export type Key = number | string;
+type PropsWithChildren<P = any> = P & { children?: ReactElement[] };
 
-export interface IElement<
-  P extends Partial<IElementProps> = any,
-  T extends string | FC | Component = any
-> {
+export interface ReactElement<P = any, T = string | ComponentType<P>> {
+  $$typeof?: symbol; // TODO:
+
   type: T;
-  props: P;
-  children: IElement[];
+  key?: ReactKey;
+  ref?; // TODO:
+  readonly props: PropsWithChildren<P>; // TODO:
+
+  // Record the component responsible for creating this element.
+  ReactInstance?: ReactInstance;
+  _owner?; // TODO:
 }
 
-export interface IElementProps {
-  [key: string]: any;
-  textContent: string;
-  key: Key;
-  children: IElement[];
-}
+export interface NativeElement<P = any> extends ReactElement<P, string> {}
 
-type FC<P = {}> = FunctionComponent<P>;
+export type ReactKey = string | number;
+export type ReactInstance = ClassComponent; // classComponent or Element;
 
-interface FunctionComponent<P = {}> {
-  (props: PropsWithChildren<P>, context?: any): IElement | null;
-  // propTypes?: WeakValidationMap<P> | undefined;
-  // contextTypes?: ValidationMap<any> | undefined;
-  defaultProps?: Partial<P> | undefined;
-  displayName?: string | undefined;
-}
-type PropsWithChildren<P> = P & { children?: IElement };
+export interface Element {}
+
+//
+// const ReactElement = function(type, key, ref, self, source, owner, props) {
+//   const element = {
+//     // This tag allows us to uniquely identify this as a React Element
+//     $$typeof: REACT_ELEMENT_TYPE,
+//
+//     // Built-in properties that belong on the element
+//     type: type,
+//     key: key,
+//     ref: ref,
+//     props: props,
+//
+//     // Record the component responsible for creating this element.
+//      ReactInstance
+//     _owner: owner,
+//   };
+
+export type ReactNode =
+  | null
+  | boolean
+  | number
+  | string
+  | ReactElement
+  | Iterable<ReactElement>;
+// | React$Element<any>
+// | React$Portal
+// | Iterable<?React$Node>;
+
+export type OldDom = MixinTextDom | MixinChildNodeDom | MixinHTMLDom;
+
+export type MixinTextDom = Text &
+  Partial<{
+    _element: ReactElement;
+  }>;
+export type MixinChildNodeDom = ChildNode &
+  Partial<{
+    _element: ReactElement;
+  }>;
+export type MixinHTMLDom = HTMLElement &
+  Partial<{
+    _element: ReactElement;
+  }>;

@@ -1,20 +1,25 @@
-import { IElement } from "./types";
-import { isFunction } from "lodash";
+import { OldDom, ReactElement } from "./types";
 import { mountNativeElement } from "./mountNativeElement";
 import { mountComponent } from "./mountComponent";
+import { ComponentType } from "./types/component";
+import { isComponent } from "./utils";
 
 export const mountElement = (
-  element: IElement,
+  element: ReactElement,
   container: HTMLElement,
-  oldElement?: IElement
+  oldDom?: OldDom
 ) => {
-  const { type, props, children } = element;
+  const { type } = element;
 
-  if (!isFunction(type)) {
-    // mount native element
-    mountNativeElement(element, container, oldElement);
-  } else if (isFunction(type)) {
+  if (isComponent(type)) {
     // mount component
-    mountComponent(element, container, oldElement);
+    mountComponent(
+      element as ReactElement<any, ComponentType>,
+      container,
+      oldDom
+    );
+  } else {
+    // mount native element
+    mountNativeElement(element, container, oldDom);
   }
 };

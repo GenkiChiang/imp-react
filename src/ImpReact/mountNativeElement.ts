@@ -1,11 +1,18 @@
-import {IElement} from "./types";
-import {createDomElement} from "./createDomElement";
+import { OldDom, ReactElement } from "./types";
+import { createDomElement } from "./createDomElement";
+import { unmountNode } from "./unmountNode";
 
 export const mountNativeElement = (
-  element: IElement,
+  element: ReactElement,
   container: HTMLElement,
-  oldElement: IElement
+  oldDom?: OldDom
 ) => {
   const newDomElement = createDomElement(element);
-  container.appendChild(newDomElement);
+
+  if (oldDom) {
+    container.insertBefore(newDomElement, oldDom);
+    unmountNode(oldDom);
+  } else {
+    container.appendChild(newDomElement);
+  }
 };

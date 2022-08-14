@@ -1,46 +1,47 @@
-import { FC, IElement } from "./types";
-import { isClassComponent } from "./utils";
-import { Component } from "./Component";
+import { OldDom, ReactElement, ReactInstance } from "./types";
+import { shouldConstruct } from "./utils";
 import { mountElement } from "./mountElement";
+import { ClassComponent, ComponentType, FC } from "./types/component";
 
-const buildClassComponent = (element: IElement<{}, Component>) => {
+const buildClassComponent = (
+  element: ReactElement<any, ClassComponent>
+): ReactElement => {
   const { type, props } = element;
-  // @ts-ignore
-  const component = new type(props);
-  const nextElement = component.render();
-  nextElement.component = component;
+
+  const instance = new type(props);
+  const nextElement = instance.render();
+  nextElement.ReactInstance = instance;
   return nextElement;
 };
 
-const buildFnComponent = (element: IElement<{}, FC>) => {
+const buildFnComponent = (element: ReactElement<any, FC>): ReactElement => {
   const { type, props } = element;
+
   return type(props);
 };
 
 export const mountComponent = (
-  element: IElement,
+  element: ReactElement<any, ComponentType>,
   container: HTMLElement,
-  oldElement?: IElement
+  oldDom?: OldDom
 ) => {
   const { type } = element;
-  let nextElement;
-  let component;
-  console.log(isClassComponent(type))
-  console.dir((type))
-  if (isClassComponent(type)) {
+  let nextElement: ReactElement;
+  let instance: ReactInstance;
+  if (shouldConstruct(type)) {
     // TODO: mount class component
-    // @ts-ignore
-    nextElement = buildClassComponent(element);
-    component = nextElement.component;
+    nextElement = buildClassComponent(
+      element as ReactElement<any, ClassComponent>
+    );
+    instance = nextElement.ReactInstance;
   } else {
-    // TODO: mount fn component
-    // @ts-ignore
-    nextElement = buildFnComponent(element);
+    // mount fn component
+    nextElement = buildFnComponent(element as ReactElement<any, FC>);
   }
 
-  mountElement(nextElement, container, oldElement);
+  mountElement(nextElement, container, oldDom);
 
-  if (component) {
-    component.componentDidMount();
+  if (instance) {
+    instance.componentDidMount();
   }
 };

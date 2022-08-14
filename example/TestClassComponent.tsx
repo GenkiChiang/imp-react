@@ -2,7 +2,7 @@ import ImpReact from "../src/ImpReact";
 import { Component } from "../src/ImpReact/Component";
 
 export default class TestClassComponent extends Component {
-  public state = {
+  public readonly state = {
     conditionRenderFlag: 1,
   };
 

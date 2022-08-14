@@ -1,18 +1,28 @@
-import { IElement } from "./types";
+import {
+  MixinHTMLDom,
+  OldDom,
+  PropsWithChildren,
+  ReactElement,
+  MixinTextDom,
+} from "./types";
 import { updateDomProperties } from "./updateDomProperties";
 import { mountElement } from "./mountElement";
 
-export const createDomElement = (element: IElement) => {
-  const { type, props, children } = element;
+export const createDomElement = (element: ReactElement) => {
+  const { type, props } = element;
+  const children = props.children as ReactElement[];
   // 文本节点
-  let newDom: HTMLElement | Text;
+  let newDom: MixinHTMLDom | MixinTextDom;
   if (type === "text") {
+    //
     newDom = document.createTextNode(props.textContent);
   } else {
     // 元素节点
     newDom = document.createElement(type as string);
     updateDomProperties(newDom, element);
   }
+  // save virtual dom
+  newDom._element = element;
 
   children.forEach((child) => {
     mountElement(child, newDom as HTMLElement);

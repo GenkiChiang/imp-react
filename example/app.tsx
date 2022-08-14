@@ -14,4 +14,14 @@ const virtualDom = (
     <TestFnComponent />
   </div>
 );
-ImpReact.render(virtualDom, root);
+ImpReact.render(
+  <TestFnComponent title="函数组件" content="函数组件内容" />,
+  root
+);
+
+setTimeout(() => {
+  ImpReact.render(
+    <TestFnComponent title="改变后的函数组件" content="改变后的函数组件内容" />,
+    root
+  );
+}, 2000);
