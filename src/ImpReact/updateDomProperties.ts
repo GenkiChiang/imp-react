@@ -1,6 +1,6 @@
 import { MixinHTMLDom, ReactElement } from "./types";
-import { getEventName, isEventProps } from "./utils";
 import { Maybe } from "./types/utils";
+import {addEvent, isEventProps, removeEvent} from "./utils/eventHelper";
 
 export const updateDomProperties = (
   oldDom: MixinHTMLDom,
@@ -14,8 +14,7 @@ export const updateDomProperties = (
     const oldPropValue = oldProps?.[propName];
     if (oldPropValue !== propValue) {
       if (isEventProps(propName)) {
-        const eventName = getEventName(propName);
-        oldDom.addEventListener(eventName, propValue as EventListener);
+        addEvent(propName, propValue, oldDom);
       } else if (propName === "value" || propName === "checked") {
         oldDom[propName] = propValue;
       } else if (propName === "className") {
@@ -32,8 +31,7 @@ export const updateDomProperties = (
     const propValue = props[oldPropsName];
     if (propValue === undefined) {
       if (isEventProps(oldPropsName)) {
-        const eventName = getEventName(oldPropsName);
-        oldDom.removeEventListener(eventName, oldPropsValue as EventListener);
+        removeEvent(oldPropsName, propValue, oldDom);
       } else if (oldPropsName === "value" || oldPropsName === "checked") {
         oldDom[oldPropsName] = "";
       } else {

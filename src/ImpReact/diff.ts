@@ -31,12 +31,8 @@ export const diff = (
 
 /**
  * TODO:
- // * 1. 更新DOM元素  VDom 对比  节点类型相同
- // * 2. 更新DOM元素  VDOM 对比：节点类型不同
  * 3. 更新DOM元素：删除节点
  * 4. 更新DOM元素：setState 实现类组件更新
- // * 5. 组件更新----不是同一个组件
- // * 6. 组件更新----是同一个组件
  * 7. implement ref get DOM and Component Instance
  * 8. key 属性进行节点对比
  * 9. 删除节点

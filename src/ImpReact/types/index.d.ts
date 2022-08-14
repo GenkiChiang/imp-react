@@ -51,7 +51,7 @@ export type ReactNode =
 // | Iterable<?React$Node>;
 
 export type OldDom = MixinTextDom | MixinChildNodeDom | MixinHTMLDom;
-
+export type Dom = HTMLElement | Text | ChildNode;
 export type MixinTextDom = Text &
   Partial<{
     _element: ReactElement;

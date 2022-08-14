@@ -1,13 +1,6 @@
-import {
-  isArray,
-  isBoolean,
-  isNull,
-  isObject,
-  isPlainObject,
-  isUndefined,
-} from "lodash/fp";
-import { ComponentType } from "../types/component";
-import { ReactElement, ReactInstance } from "../types";
+import {isArray, isBoolean, isNull, isObject, isPlainObject, isUndefined,} from "lodash/fp";
+import {ComponentType} from "../types/component";
+import {ReactElement, ReactInstance} from "../types";
 
 export const shouldConstruct = (type: ComponentType) => {
   const prototype = type.prototype;
@@ -15,10 +8,12 @@ export const shouldConstruct = (type: ComponentType) => {
 };
 export const hasValidKey = (props) => props.key !== undefined;
 export const hasValidRef = (props) => props.ref !== undefined;
+export const hasValidChildren = (props) => !!props?.children?.length;
 
-export const isClassComponent = (type: ComponentType) => {
+export const isClassComponent = (type: ReactElement["type"]) => {
   if (typeof type === "function")
     return !!type.prototype && type.prototype.isReactComponent;
+  else return false;
 };
 export const isComponent = (type: ReactElement["type"]) => {
   return typeof type === "function";
@@ -38,9 +33,6 @@ export const isSameElementType = (
   return element.type === oldElement.type;
 };
 
-export const isEventProps = (propsName: string) => propsName.startsWith("on");
-export const getEventName = (propsName: string) =>
-  propsName.slice(2).toLowerCase();
 const isFalsyObject = (value) => {
   if (!isObject(value)) return false;
   if (!isPlainObject(value)) return false;
