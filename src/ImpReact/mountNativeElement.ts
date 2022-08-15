@@ -16,7 +16,8 @@ export const mountNativeElement = (
     container.appendChild(newDomElement);
   }
 
-  if(element.ReactInstance){
-    element.ReactInstance.setDom(newDomElement)
+  if (element.ReactInstance) {
+    element.ReactInstance.setDom(newDomElement);
   }
+
 };

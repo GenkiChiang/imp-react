@@ -21,7 +21,7 @@ export default class TestClassComponent extends Component<
   constructor(props) {
     super(props);
   }
-
+  inputRef = HTMLInputElement;
   componentDidMount() {
     console.log("mounted");
     setTimeout(() => {
@@ -32,6 +32,7 @@ export default class TestClassComponent extends Component<
       });
     }, 2000);
 
+    console.log(this.inputRef);
   }
 
   render() {
@@ -65,7 +66,11 @@ export default class TestClassComponent extends Component<
         </button>
         <h4>这个将会被删除</h4>
         无标签包裹的的内容
-        <input type="text" value="input.value" />
+        <input
+          type="text"
+          value="input.value"
+          ref={(ref) => (this.inputRef = ref)}
+        />
       </div>
     );
   }

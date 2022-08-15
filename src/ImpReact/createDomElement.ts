@@ -28,5 +28,8 @@ export const createDomElement = (element: ReactElement) => {
     mountElement(child, newDom as HTMLElement);
   });
 
+  if (element.ref) {
+    element.ref(newDom);
+  }
   return newDom;
 };

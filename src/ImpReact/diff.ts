@@ -25,7 +25,6 @@ export const diff = (
     diffElement(element, oldDom);
   }
 
-  // console.log(element)
   // diff子节点
   element.props.children.forEach((child, index) => {
     diff(child, oldDom, oldDom.childNodes[index]);
@@ -34,8 +33,6 @@ export const diff = (
 
 /**
  * TODO:
- * 3. 更新DOM元素：删除节点
- * 4. 更新DOM元素：setState 实现类组件更新
  * 7. implement ref get DOM and Component Instance
  * 8. key 属性进行节点对比
  * 9. 删除节点

@@ -1,11 +1,9 @@
-import { MixinChildNode, MixinNode, OldDom } from "./types";
-import { hasValidRef, isClassComponent } from "./utils";
-import { entries, forEach } from "lodash";
+import { MixinChildNode } from "./types";
+import { isClassComponent } from "./utils";
+import { entries } from "lodash";
 import { isEventProps, removeEvent } from "./utils/eventHelper";
-import { Maybe } from "./types/utils";
 
 export const unmountNode = (oldDom: MixinChildNode) => {
-  // TODO:
   const oldElement = oldDom._element;
   // 1.文本节点，直接删除
   if (oldElement.type === "text") {
@@ -19,8 +17,9 @@ export const unmountNode = (oldDom: MixinChildNode) => {
     instance.componentWillUnmount();
   }
 
-  // TODO: 3.是否有ref
-  if (hasValidRef(oldElement.props)) {
+  // 3.是否有ref
+  if (oldElement.ref) {
+    oldElement.ref(null);
   }
 
   // 4.是否有注册有event,如果有remove event

@@ -43,5 +43,7 @@ export const mountComponent = (
 
   if (instance) {
     instance.componentDidMount();
+
+    element.ref && element.ref(instance);
   }
 };

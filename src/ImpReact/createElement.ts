@@ -1,5 +1,5 @@
 import { isObject } from "lodash/fp";
-import { PropsWithChildren, ReactElement, ReactKey } from "./types";
+import { PropsWithChildren, ReactElement, ReactKey, ReactRef } from "./types";
 import { hasValidKey, hasValidRef, isFalsy } from "./utils";
 import { REACT_ELEMENT_TYPE } from "./reactSymbols";
 import { ComponentType } from "./types/component";
@@ -22,7 +22,7 @@ export const createElement = <P = any>(
   const props: PropsWithChildren = {};
 
   let key: ReactKey;
-  let ref;
+  let ref: ReactRef;
 
   if (config !== null) {
     if (hasValidKey(config)) {

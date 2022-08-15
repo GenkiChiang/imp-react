@@ -7,7 +7,7 @@ export interface ReactElement<P = any, T = string | ComponentType<P>> {
 
   type: T;
   key?: ReactKey;
-  ref?; // TODO:
+  ref?: ReactRef; // TODO:
   readonly props: PropsWithChildren<P>; // TODO:
 
   // Record the component responsible for creating this element.
@@ -18,6 +18,9 @@ export interface ReactElement<P = any, T = string | ComponentType<P>> {
 export interface NativeElement<P = any> extends ReactElement<P, string> {}
 
 export type ReactKey = string | number;
+export interface ReactRef<T = any> {
+  (instance: T): void;
+}
 export type ReactInstance = ClassComponent; // classComponent or Element;
 
 export interface Element {}
@@ -55,8 +58,8 @@ export type Dom = ParentNode | ChildNode | Node | HTMLElement;
 type Mixin_Element = Partial<{ _element: ReactElement }>;
 export type MixinTextDom = Text & Mixin_Element;
 
-export type MixinChildNode<T extends ParentNode | ChildNode = ChildNode> =
-  T & Mixin_Element;
+export type MixinChildNode<T extends ParentNode | ChildNode = ChildNode> = T &
+  Mixin_Element;
 export type MixinParentNode = ParentNode & Mixin_Element;
 export type MixinNode = Node & Mixin_Element;
 export type MixinNodeDom = MixinChildNode | MixinParentNode | MixinNode;
