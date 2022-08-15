@@ -4,7 +4,7 @@ import { voidFunction } from "./utils";
 
 export abstract class ComponentLifecycle<P = any, S = any> {
   abstract readonly state: S;
-  protected constructor(public readonly props: P) {}
+   protected constructor(public readonly props: P) {}
 
   componentWillMount(): void {}
   componentDidMount(): void {}
@@ -35,7 +35,7 @@ export abstract class Component<P = any, S = any> extends ComponentLifecycle<
   refs: { [key: string]: ReactInstance } = {};
   _dom: Dom;
 
-  constructor(public readonly props: Readonly<P>) {
+  protected constructor(public readonly props: Readonly<P>) {
     super(props);
   }
   // public defaultProps;

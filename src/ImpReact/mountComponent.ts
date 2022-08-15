@@ -2,6 +2,7 @@ import { Dom, OldDom, ReactElement, ReactInstance } from "./types";
 import { shouldConstruct } from "./utils";
 import { mountElement } from "./mountElement";
 import { ClassComponent, ComponentType, FC } from "./types/component";
+import { setRef } from "./createRef";
 
 const buildClassComponent = (
   element: ReactElement<any, ClassComponent>
@@ -34,6 +35,7 @@ export const mountComponent = (
       element as ReactElement<any, ClassComponent>
     );
     instance = nextElement.ReactInstance;
+    instance.componentWillMount();
   } else {
     // mount fn component
     nextElement = buildFnComponent(element as ReactElement<any, FC>);
@@ -43,7 +45,7 @@ export const mountComponent = (
 
   if (instance) {
     instance.componentDidMount();
-
-    element.ref && element.ref(instance);
+    setRef(element.ref, instance);
+    // element.ref && element.ref(instance);
   }
 };

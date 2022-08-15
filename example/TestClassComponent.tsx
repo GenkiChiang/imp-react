@@ -1,5 +1,6 @@
 import ImpReact from "../src/ImpReact";
 import { Component } from "../src/ImpReact/Component";
+import { createRef } from "../src/ImpReact/createRef";
 
 interface Props {
   title: string;
@@ -21,7 +22,8 @@ export default class TestClassComponent extends Component<
   constructor(props) {
     super(props);
   }
-  inputRef = HTMLInputElement;
+  inputRef = createRef();
+
   componentDidMount() {
     console.log("mounted");
     setTimeout(() => {
@@ -66,11 +68,7 @@ export default class TestClassComponent extends Component<
         </button>
         <h4>这个将会被删除</h4>
         无标签包裹的的内容
-        <input
-          type="text"
-          value="input.value"
-          ref={(ref) => (this.inputRef = ref)}
-        />
+        <input type="text" value="input.value" ref={this.inputRef} />
       </div>
     );
   }

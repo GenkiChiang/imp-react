@@ -7,7 +7,7 @@ export interface ReactElement<P = any, T = string | ComponentType<P>> {
 
   type: T;
   key?: ReactKey;
-  ref?: ReactRef; // TODO:
+  ref?: ReactRef;
   readonly props: PropsWithChildren<P>; // TODO:
 
   // Record the component responsible for creating this element.
@@ -18,8 +18,12 @@ export interface ReactElement<P = any, T = string | ComponentType<P>> {
 export interface NativeElement<P = any> extends ReactElement<P, string> {}
 
 export type ReactKey = string | number;
-export interface ReactRef<T = any> {
+export type ReactRef<T = null> = RefFn<T> | RefObject<T> | null;
+export interface RefFn<T = null> {
   (instance: T): void;
+}
+export interface RefObject<T = null> {
+   current: T;
 }
 export type ReactInstance = ClassComponent; // classComponent or Element;
 

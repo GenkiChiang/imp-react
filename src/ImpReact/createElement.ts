@@ -1,5 +1,11 @@
 import { isObject } from "lodash/fp";
-import { PropsWithChildren, ReactElement, ReactKey, ReactRef } from "./types";
+import {
+  PropsWithChildren,
+  ReactElement,
+  ReactKey,
+  ReactRef,
+  RefFn,
+} from "./types";
 import { hasValidKey, hasValidRef, isFalsy } from "./utils";
 import { REACT_ELEMENT_TYPE } from "./reactSymbols";
 import { ComponentType } from "./types/component";

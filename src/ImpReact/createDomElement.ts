@@ -1,12 +1,7 @@
-import {
-  MixinHTMLDom,
-  OldDom,
-  PropsWithChildren,
-  ReactElement,
-  MixinTextDom,
-} from "./types";
+import { MixinHTMLDom, MixinTextDom, ReactElement } from "./types";
 import { updateDomProperties } from "./updateDomProperties";
 import { mountElement } from "./mountElement";
+import { setRef } from "./createRef";
 
 export const createDomElement = (element: ReactElement) => {
   const { type, props } = element;
@@ -29,7 +24,8 @@ export const createDomElement = (element: ReactElement) => {
   });
 
   if (element.ref) {
-    element.ref(newDom);
+    // element.ref(newDom);
+    setRef(element.ref, newDom);
   }
   return newDom;
 };
