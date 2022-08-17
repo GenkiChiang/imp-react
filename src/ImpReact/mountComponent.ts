@@ -1,8 +1,7 @@
 import { Dom, OldDom, ReactElement, ReactInstance } from "./types";
-import { shouldConstruct } from "./utils";
+import {setRef, shouldConstruct} from "./utils";
 import { mountElement } from "./mountElement";
 import { ClassComponent, ComponentType, FC } from "./types/component";
-import { setRef } from "./createRef";
 
 const buildClassComponent = (
   element: ReactElement<any, ClassComponent>

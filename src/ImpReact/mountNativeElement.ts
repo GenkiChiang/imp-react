@@ -1,6 +1,7 @@
 import { Dom, MixinChildNode, OldDom, ReactElement } from "./types";
 import { createDomElement } from "./createDomElement";
 import { unmountNode } from "./unmountNode";
+import { EFFECT_TAG } from "./types/effectTag";
 
 export const mountNativeElement = (
   element: ReactElement,
@@ -11,7 +12,9 @@ export const mountNativeElement = (
 
   if (oldDom) {
     container.insertBefore(newDomElement, oldDom);
-    unmountNode(oldDom as MixinChildNode);
+    if (element.effectTag !== EFFECT_TAG.INSERT) {
+      unmountNode(oldDom as MixinChildNode);
+    }
   } else {
     container.appendChild(newDomElement);
   }
@@ -19,5 +22,4 @@ export const mountNativeElement = (
   if (element.ReactInstance) {
     element.ReactInstance.setDom(newDomElement);
   }
-
 };

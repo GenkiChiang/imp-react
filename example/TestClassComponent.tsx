@@ -9,6 +9,7 @@ interface Props {
 interface State {
   count: number;
   conditionRenderFlag: number;
+  list: number[];
 }
 export default class TestClassComponent extends Component<
   Partial<Props>,
@@ -17,24 +18,35 @@ export default class TestClassComponent extends Component<
   public readonly state = {
     conditionRenderFlag: 1,
     count: 1,
+    list: [1, 2, 3, 4, 5],
   };
 
   constructor(props) {
     super(props);
+    this.handleClick=this.handleClick.bind(this)
   }
   inputRef = createRef();
 
   componentDidMount() {
     console.log("mounted");
-    setTimeout(() => {
-      this.setState({
-        ...this.state,
-        conditionRenderFlag: 2,
-        count: 2,
-      });
-    }, 2000);
+    // setTimeout(() => {
+    //   this.setState({
+    //     ...this.state,
+    //     conditionRenderFlag: 3,
+    //     count: 2,
+    //   });
+    // }, 2000);
 
     console.log(this.inputRef);
+  }
+  handleClick() {
+    this.setState({
+      ...this.state,
+      conditionRenderFlag: 3,
+      count: 2,
+      list: this.state.list[3] === 4 ? [1, 2, 3, 5, 4] : [1, 2, 3, 4, 5],
+    });
+      console.log(this.state.list)
   }
 
   render() {
@@ -59,16 +71,13 @@ export default class TestClassComponent extends Component<
           <div>conditionRenderFlag===2渲染当前内容</div>
         )}
         <span>这是一段内容</span>
-        <button
-          onClick={() => {
-            console.log("button clicked");
-          }}
-        >
-          点击我
-        </button>
+        <button onClick={this.handleClick}>点击我</button>
         <h4>这个将会被删除</h4>
         无标签包裹的的内容
         <input type="text" value="input.value" ref={this.inputRef} />
+        {this.state.list.map((item) => (
+          <div key={item}>{item}</div>
+        ))}
       </div>
     );
   }

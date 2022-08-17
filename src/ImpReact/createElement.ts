@@ -27,8 +27,8 @@ export const createElement = <P = any>(
 ): ReactElement<P> => {
   const props: PropsWithChildren = {};
 
-  let key: ReactKey;
-  let ref: ReactRef;
+  let key: ReactKey = null;
+  let ref: ReactRef = null;
 
   if (config !== null) {
     if (hasValidKey(config)) {
@@ -46,8 +46,9 @@ export const createElement = <P = any>(
     });
   }
   // resolve virtual dom's children
-  const childrenElements: ReactElement[] = [...children].reduce(
-    (previousValue, child) => {
+  const childrenElements: ReactElement[] = []
+    .concat(...children)
+    .reduce((previousValue, child) => {
       // 忽略 undefined null boolean [] {}
       if (isFalsy(child)) {
         return previousValue;
@@ -60,9 +61,7 @@ export const createElement = <P = any>(
       }
 
       return previousValue;
-    },
-    []
-  );
+    }, []);
   Object.freeze(childrenElements);
   props.children = childrenElements;
 
@@ -98,6 +97,6 @@ const ReactElementFactory = (type, key: ReactKey, ref, props): ReactElement => {
   Object.freeze(element.props);
   // Object.freeze(element);
 
-  // console.log(element)
+  // console.log(element.props);
   return element;
 };

@@ -13,6 +13,8 @@ export const updateDomProperties = (
   Object.entries(props).forEach(([propName, propValue]) => {
     const oldPropValue = oldProps?.[propName];
     if (oldPropValue !== propValue) {
+      console.log(oldPropValue, propValue);
+
       if (isEventProps(propName)) {
         addEvent(propName, propValue, oldDom);
       } else if (propName === "value" || propName === "checked") {

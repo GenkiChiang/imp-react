@@ -1,8 +1,7 @@
 import { MixinChildNode } from "./types";
-import { isClassComponent } from "./utils";
+import {isClassComponent, setRef} from "./utils";
 import { entries } from "lodash";
 import { isEventProps, removeEvent } from "./utils/eventHelper";
-import { setRef } from "./createRef";
 
 export const unmountNode = (oldDom: MixinChildNode) => {
   const oldElement = oldDom._element;

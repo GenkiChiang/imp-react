@@ -1,4 +1,5 @@
 import { ClassComponent, ComponentType } from "./component";
+import {EFFECT_TAG} from "./effectTag";
 
 type PropsWithChildren<P = any> = P & { children?: ReactElement[] };
 
@@ -12,6 +13,7 @@ export interface ReactElement<P = any, T = string | ComponentType<P>> {
 
   // Record the component responsible for creating this element.
   ReactInstance?: ReactInstance;
+  effectTag?: EFFECT_TAG;
   _owner?; // TODO:
 }
 
@@ -23,7 +25,7 @@ export interface RefFn<T = null> {
   (instance: T): void;
 }
 export interface RefObject<T = null> {
-   current: T;
+  current: T;
 }
 export type ReactInstance = ClassComponent; // classComponent or Element;
 

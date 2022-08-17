@@ -1,4 +1,4 @@
-import { ReactRef, RefObject } from "./types";
+import {RefObject} from "./types";
 
 export const createRef = <T = null>(instance: T = null): RefObject<T> => {
   const refObject = {
@@ -9,11 +9,3 @@ export const createRef = <T = null>(instance: T = null): RefObject<T> => {
   return refObject;
 };
 
-export const setRef = (ref: ReactRef, instance) => {
-  if (!ref) return;
-  if (typeof ref === "function") {
-    ref(instance);
-  } else {
-    ref.current = instance;
-  }
-};

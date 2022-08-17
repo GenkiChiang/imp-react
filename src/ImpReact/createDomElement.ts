@@ -1,10 +1,11 @@
 import { MixinHTMLDom, MixinTextDom, ReactElement } from "./types";
 import { updateDomProperties } from "./updateDomProperties";
 import { mountElement } from "./mountElement";
-import { setRef } from "./createRef";
+import {setRef} from "./utils";
 
 export const createDomElement = (element: ReactElement) => {
   const { type, props } = element;
+  // console.log(element)
   const children = props.children as ReactElement[];
   // 文本节点
   let newDom: MixinHTMLDom | MixinTextDom;
