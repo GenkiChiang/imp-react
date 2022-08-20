@@ -23,7 +23,7 @@ export default class TestClassComponent extends Component<
 
   constructor(props) {
     super(props);
-    this.handleClick=this.handleClick.bind(this)
+    this.handleClick = this.handleClick.bind(this);
   }
   inputRef = createRef();
 
@@ -46,7 +46,7 @@ export default class TestClassComponent extends Component<
       count: 2,
       list: this.state.list[3] === 4 ? [1, 2, 3, 5, 4] : [1, 2, 3, 4, 5],
     });
-      console.log(this.state.list)
+    // console.log(this.state.list);
   }
 
   render() {

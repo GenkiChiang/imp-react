@@ -13,9 +13,12 @@ export const updateDomProperties = (
   Object.entries(props).forEach(([propName, propValue]) => {
     const oldPropValue = oldProps?.[propName];
     if (oldPropValue !== propValue) {
-      console.log(oldPropValue, propValue);
-
+      // console.log(oldPropValue, propValue);
       if (isEventProps(propName)) {
+        if (oldPropValue) {
+          // 单独处理bind()函数|event callback不相同情况
+          removeEvent(propName, oldPropValue, oldDom);
+        }
         addEvent(propName, propValue, oldDom);
       } else if (propName === "value" || propName === "checked") {
         oldDom[propName] = propValue;

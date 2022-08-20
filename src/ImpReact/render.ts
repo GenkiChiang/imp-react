@@ -12,7 +12,6 @@ export const render = (
   container: Dom,
   oldDom: OldDom = container.firstChild
 ) => {
-  console.log("called render");
   // 根据类型创建真实Dom，渲染到container下
   diff(element, container, oldDom);
 };
